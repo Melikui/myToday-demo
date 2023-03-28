@@ -3,7 +3,11 @@ node_modules
 /FrontEnd/node_modules
 /BackEnd/node_modules
 /FrontEnd/dist
-/FrontEnd/public/model
+
+
+/FrontEnd/public/model/goddess
+/FrontEnd/public/model/spider
+
 example.html
 favicon.ico
 # local env files
