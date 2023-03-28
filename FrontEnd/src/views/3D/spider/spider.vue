@@ -80,7 +80,7 @@ export default {
                     // const action = mixer.clipAction( obj.animations[ 0 ] );
                     // action.play();
                     const texture = new THREE.TextureLoader().load(
-                        `${process.env.BASE_URL}/model/spider/img/4.png`
+                        `${process.env.BASE_URL}/model/spider/img/clothes.png`
                     );
                     // 颜色贴图中已经包含了光照信息，所以直接使用不受光照影响的基础网格材质MeshBasicMaterial
                     obj.children[0].material = new THREE.MeshPhongMaterial({
