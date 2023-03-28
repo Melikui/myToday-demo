@@ -5,7 +5,6 @@ node_modules
 /FrontEnd/dist
 
 
-/FrontEnd/public/model/goddess
 /FrontEnd/public/model/spider
 
 example.html
