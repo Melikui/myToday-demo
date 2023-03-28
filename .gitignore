@@ -3,8 +3,7 @@ node_modules
 /FrontEnd/node_modules
 /BackEnd/node_modules
 /FrontEnd/dist
-/FrontEnd
-FrontEnd
+/FrontEnd/public/model
 example.html
 favicon.ico
 # local env files

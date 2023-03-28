@@ -1,0 +1,16 @@
+
+/* 不换行，超出打点 */
+.overflow-txt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 文本超出三行打点 */
+.text-line-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
