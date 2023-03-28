@@ -5,7 +5,7 @@ node_modules
 /FrontEnd/dist
 
 
-/FrontEnd/public/model/spider
+/FrontEnd/public/model/spider/img
 
 example.html
 favicon.ico
