@@ -1,71 +1,95 @@
 <template>
-    <div class="vue-test">
-        <div class="operate-btn">
-            <div @click="onClick" class="btn">执行</div>
+    <div id="app" class="esign">
+        <div class="esign-box">
+            <v-esign
+                class="esignature"
+                ref="esign"
+                :width="800"
+                :height="300"
+                :isCrop="isCrop"
+                :lineWidth="lineWidth"
+                :lineColor="lineColor"
+                :bgColor.sync="bgColor"
+            />
         </div>
-        <div class="content">{{ state.content }}</div>
+        <div class="esigh-btns">
+            <button @click="handleReset">清空画板</button>
+            <button @click="handleGenerate">生成图片</button>
+        </div>
+        <div class="esigh-result">
+            <img v-if="resultImg" :src="resultImg" alt="" />
+        </div>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive } from "vue";
-import { getTestData } from "../../api/mock";
-export default defineComponent({
-    setup() {
-        const state: any = reactive({
-            content: "",
-            username: "likui",
-            password: "123456",
-        });
-        const onClick = async () => {
-            let obj = {
-                name: "jack",
-                age: 25,
-            };
-            let result = await getTestData(obj);
-            state.content = result;
-        };
+<script>
+import vEsign from "@/components/Plugins/v-esign.vue";
+export default {
+    name: "test",
+    components: {
+        "v-esign": vEsign,
+    },
+    data() {
         return {
-            state,
-            onClick,
+            lineWidth: 6,
+            lineColor: "#000000",
+            bgColor: "",
+            resultImg: "",
+            isCrop: false,
         };
     },
-    mounted() {},
-});
+
+    methods: {
+        handleReset() {
+            this.$refs.esign.reset();
+        },
+        handleGenerate() {
+            this.$refs.esign
+                .generate()
+                .then((res) => {
+                    this.resultImg = res;
+                    console.log(res);
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        },
+    },
+};
 </script>
 
-<style lang="scss" scoped>
-.vue-test {
-    width: 90vw;
-    height: 90vh;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    // z-index: 10000;
-    transform: translate(-50%, -50%);
-    background-color: rgba($color: #fff, $alpha: 0.8);
-    padding: 20px;
+<style scoped>
+.esign {
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px;
+}
+.esigh-btns button {
+    color: #fff;
+    height: 40px;
+    width: 100px;
+    font-size: 16px;
+    margin-right: 10px;
+    outline: none;
     border-radius: 4px;
-    .operate-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .btn {
-            padding: 8px 30px;
-            border-radius: 8px;
-            color: #666;
-            background-color: #ddd;
-            cursor: pointer;
-        }
-    }
-    .content {
-        width: calc(90vw - 40px);
-        height: calc(90vh - 95px);
-        border-radius: 4px;
-        margin-top: 20px;
-        border: 1px solid #eee;
-        background-color: #fff;
-        padding: 15px;
-    }
+    background: #f60;
+    border: 1px solid transparent;
+}
+.esigh-btns button:active {
+    color: #fff;
+    box-shadow: 0px 0px 50px orangered inset;
+}
+.esigh-result {
+    margin-top: 10px;
+}
+.esigh-result img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ececee;
+}
+.esignature {
+    margin: 10px 0;
+    border: 2px solid #ccc;
 }
 </style>
