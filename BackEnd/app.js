@@ -3,6 +3,7 @@
  * @desc: 后台启动文件：nodemon app.js
  */
 
+// ------------------------------------
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -93,3 +94,14 @@ app.listen(8888, () => {
 // app.listen(8080, () => {
 //     console.log("---------", "serve is running at port 8080...");
 // });
+
+// websocket连接服务
+const WebSocket = require("ws");
+const wss = new WebSocket.Server({ port: 8080 });
+wss.on("connection", (ws) => {
+    console.log("开启服务...");
+    ws.on("message", (message) => {
+        console.log("Received: %s", message);
+    });
+    ws.send("来自服务端数据:{ a: 1, b: 2, c: 3 }");
+});

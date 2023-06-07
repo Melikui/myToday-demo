@@ -11,15 +11,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: #bfa; */
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-}
-#droptarget{
-    width: 30px;
-    height: 30px;
-    background-color: #eee;
 }
 
 .box {

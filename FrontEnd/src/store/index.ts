@@ -1,8 +1,5 @@
 import { createStore } from "vuex";
 
-
-
-
 const store = createStore({
     state: {
         hasLogin: false,
@@ -16,9 +13,7 @@ const store = createStore({
         },
     },
     actions: {},
-    modules: {
-
-    },
+    modules: {},
 });
 
 export default store;

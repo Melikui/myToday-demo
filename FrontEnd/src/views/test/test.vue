@@ -1,95 +1,71 @@
 <template>
-    <div id="app" class="esign">
-        <div class="esign-box">
-            <v-esign
-                class="esignature"
-                ref="esign"
-                :width="800"
-                :height="300"
-                :isCrop="isCrop"
-                :lineWidth="lineWidth"
-                :lineColor="lineColor"
-                :bgColor.sync="bgColor"
-            />
+    <div class="vue-test">
+        <div class="operate-btn">
+            <div @click="onClick" class="btn">点击</div>
         </div>
-        <div class="esigh-btns">
-            <button @click="handleReset">清空画板</button>
-            <button @click="handleGenerate">生成图片</button>
-        </div>
-        <div class="esigh-result">
-            <img v-if="resultImg" :src="resultImg" alt="" />
-        </div>
+        <div class="content">{{ content }}</div>
     </div>
 </template>
 
 <script>
-import vEsign from "@/components/Plugins/v-esign.vue";
 export default {
-    name: "test",
-    components: {
-        "v-esign": vEsign,
-    },
     data() {
         return {
-            lineWidth: 6,
-            lineColor: "#000000",
-            bgColor: "",
-            resultImg: "",
-            isCrop: false,
+            content: "",
         };
     },
-
     methods: {
-        handleReset() {
-            this.$refs.esign.reset();
-        },
-        handleGenerate() {
-            this.$refs.esign
-                .generate()
-                .then((res) => {
-                    this.resultImg = res;
-                    console.log(res);
-                })
-                .catch((err) => {
-                    alert(err);
-                });
+        onClick() {
+            const ws = new WebSocket("ws://localhost:8080");
+            ws.onopen = (evt) => {
+                console.log("Connection open ...");
+                ws.send("Hello WebSockets!");
+            };
+            ws.onmessage = (evt) => {
+                console.log("evt---: ", evt);
+                console.log("Received Message: ", JSON.parse(evt.data));
+                ws.close();
+            };
+            ws.onclose = (evt) => {
+                console.log("Connection closed ...");
+            };
         },
     },
 };
 </script>
 
-<style scoped>
-.esign {
-    max-width: 1000px;
-    margin: auto;
-    padding: 10px;
-}
-.esigh-btns button {
-    color: #fff;
-    height: 40px;
-    width: 100px;
-    font-size: 16px;
-    margin-right: 10px;
-    outline: none;
+<style lang="scss" scoped>
+.vue-test {
+    width: 90vw;
+    height: 90vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    // z-index: 10000;
+    transform: translate(-50%, -50%);
+    background-color: rgba($color: #fff, $alpha: 0.8);
+    padding: 20px;
     border-radius: 4px;
-    background: #f60;
-    border: 1px solid transparent;
-}
-.esigh-btns button:active {
-    color: #fff;
-    box-shadow: 0px 0px 50px orangered inset;
-}
-.esigh-result {
-    margin-top: 10px;
-}
-.esigh-result img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ececee;
-}
-.esignature {
-    margin: 10px 0;
-    border: 2px solid #ccc;
+    .operate-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btn {
+            padding: 8px 30px;
+            border-radius: 8px;
+            color: #666;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+    }
+    .content {
+        width: calc(90vw - 40px);
+        height: calc(90vh - 95px);
+        border-radius: 4px;
+        margin-top: 20px;
+        border: 1px solid #eee;
+        background-color: #fff;
+        padding: 15px;
+    }
 }
 </style>
