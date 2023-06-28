@@ -99,9 +99,10 @@ app.listen(8888, () => {
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ port: 8080 });
 wss.on("connection", (ws) => {
-    console.log("开启服务...");
+    console.log("服务连接成功...");
     ws.on("message", (message) => {
-        console.log("Received: %s", message);
+        console.log("Received: %s", JSON.parse(message));
+        ws.send("来自服务端数据:{ a: 1, b: 2, c: 3 }");
     });
-    ws.send("来自服务端数据:{ a: 1, b: 2, c: 3 }");
+    // ws.send("来自服务端数据:{ a: 1, b: 2, c: 3 }");
 });

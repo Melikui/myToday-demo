@@ -16,19 +16,7 @@ export default {
     },
     methods: {
         onClick() {
-            const ws = new WebSocket("ws://localhost:8080");
-            ws.onopen = (evt) => {
-                console.log("Connection open ...");
-                ws.send("Hello WebSockets!");
-            };
-            ws.onmessage = (evt) => {
-                console.log("evt---: ", evt);
-                console.log("Received Message: ", JSON.parse(evt.data));
-                ws.close();
-            };
-            ws.onclose = (evt) => {
-                console.log("Connection closed ...");
-            };
+            console.log('Storage',window)
         },
     },
 };
@@ -41,7 +29,6 @@ export default {
     position: fixed;
     left: 50%;
     top: 50%;
-    // z-index: 10000;
     transform: translate(-50%, -50%);
     background-color: rgba($color: #fff, $alpha: 0.8);
     padding: 20px;
